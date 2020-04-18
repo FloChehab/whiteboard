@@ -82,7 +82,9 @@ var whiteboard = {
             _this.drawBuffer = [];
             _this.loadData(dbCp); //draw old content in
         });
-
+        $(_this.mouseOverlay).pressure({change: function(force, event){
+            _this.setStrokeThickness(force * 50);
+        }})
         $(_this.mouseOverlay).on("mousedown touchstart", function (e) {
             if (_this.imgDragActive || _this.drawFlag) {
                 return;
@@ -545,6 +547,11 @@ var whiteboard = {
             _this.sendFunction({ "t": "setTextboxFontSize", "d": [_this.latestActiveTextBoxId, thickness] });
             _this.setTextboxFontSize(_this.latestActiveTextBoxId, thickness);
         }
+    },
+    setPressureSensitivity(pressureSensitivity) {
+        var _this = this;
+        _this.pressureSensitivity = pressureSensitivity;
+        console.log(pressureSensitivity)
     },
     addImgToCanvasByUrl: function (url) {
         var _this = this;
